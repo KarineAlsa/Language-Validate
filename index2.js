@@ -45,7 +45,12 @@ function automataRangoPersonalizado(cadena) {
           //const patron = /^(for\s*\((int\s(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)=([0-9]|[a-z|A-Z]));)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(>=|<=|>|<|==)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+);)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(\++|--))\)\{(contenido)\})$/;
 
     //declaracion de funciones
-          ///const patron = /^(func\s"(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*))"\(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)?\)\{(contenido)\})$/
+          //const patron = /^(func\s*"(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*))"\(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)?\)\{(contenido)\})$/
 
+    //declaracion de condicionales
+          //const patron = /^(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(>=|<=|>|<|==|!)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+))$/; //NON NOV NOR
+          //const patron = /^(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(==|!)(true|false))$/; //NOR
+          
+          //const patron = /^(if\s*\((([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(>=|<=|>|<|==|!)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+))\)\{(contenido)\}(else\{(contenido)\}))$/;
     return patron.test(cadena);
 }
