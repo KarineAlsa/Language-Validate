@@ -29,7 +29,10 @@ function evaluarCadena() {
 }
 
 function automataRangoPersonalizado(cadena) {
-    // Expresión regular para verificar el formato tr-XXXX-a al ul-9999-z
-    const patron = /^(for )$/;
+    //declaración de varibles
+            //const patron = /^(int\s|string |boolean |)$/;
+            //const patron = /^([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)$/; //nombres 
+            //const patron = /^(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)")$/;
+            const patron = /^((int\s|string\s|boolean\s)([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)\s*=\s*(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)"))$/;
     return patron.test(cadena);
 }
