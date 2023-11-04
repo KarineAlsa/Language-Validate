@@ -33,6 +33,20 @@ function automataRangoPersonalizado(cadena) {
             //const patron = /^(int\s|string |boolean |)$/;
             //const patron = /^([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)$/; //nombres 
             //const patron = /^(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)")$/;
-            const patron = /^((int\s|string\s|boolean\s)([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)\s*=\s*(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)"))$/;
+            //const patron = /^((int\s|string\s|boolean\s)([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)\s*=\s*(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)"))$/;
+
+    //declaración de ciclos
+          //const patron = /^(for\s*\()$/;
+          //const patron = /^(int\s(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)=([0-9]|[a-z|A-Z]));)$/; //opcion 1
+          //const patron = /^(int\s(variable=([0-9]|[a-z|A-Z]));)$/; //opcion 2
+
+          //const patron = /^(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(>=|<=|>|<|==)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+);)$/; //opcion1 
+          //const patron = /^(variable(>=|<=|>|<|==)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+);)$/; //opcion2 
+          
+          //const patron = /^(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(\++|--))$/; //opcion 1
+          //const patron = /^(variable(\++|--))$/; //opcion 2
+          
+          //const patron = /^(for\s*\((int\s(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)=([0-9]|[a-z|A-Z]));)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(>=|<=|>|<|==)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+);)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)(\++|--))\)\{(contenido)\})$/; //opcion 1
+          //const patron = /^(for\s*\((int\s(variable=([0-9]|[a-z|A-Z]));)(variable(>=|<=|>|<|==)(([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)|[0-9]+);)(variable(\++|--))\)\{(contenido)\})$/;
     return patron.test(cadena);
 }
