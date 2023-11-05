@@ -13,8 +13,7 @@ const tokens = [
     { type: ')', regex: /^\)/ },
     { type: '{', regex: /^\{/ },
     { type: '}', regex: /^\}/ },
-    { type: 'if', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)/ },
-    { type: 'function', regex: /^function/ },
+    { type: 'if', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)()/ },
     { type: 'else', regex: /^else/ },
     { type: 'for', regex: /^for/ },
     { type: ',', regex: /^,/ },
@@ -52,17 +51,18 @@ function tokenize(sourceCode) {
         }
 
         if (!foundMatch) {
-            throw new Error('Error de tokenización: No se pudo analizar el código fuente en ');
+            throw new Error('Error de tokenización: No se pudo analizar el código fuente');
         }
     }
     
     return tokenizedCode;
 }
 
+let currentTokenIndex = 0;
 function parseProgram(tokens1) {
-    let currentTokenIndex = 0;
+    
     function consume(type) {
-        
+        console.log(currentTokenIndex)
         const token = tokens1[currentTokenIndex];
         
         if (token && token.type === type) {
@@ -71,10 +71,14 @@ function parseProgram(tokens1) {
             return value;
         } else {
             if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean") {
-                throw new Error(`Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndex-1].value}`);
+                let currentTokenIndexRep = currentTokenIndex;
+                currentTokenIndex = 0;
+                throw new Error(`Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
                 process.exit(1);
             }
-            throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndex-1].value}`);
+            let currentTokenIndexRep = currentTokenIndex;
+            currentTokenIndex = 0;
+            throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
         }
     }
 
@@ -82,7 +86,7 @@ function parseProgram(tokens1) {
         
         const type = consume('tipo');
         consume('IDENTIFICADOR');
-        
+        console.log(type);
         consume('=');
         parseExpresion(type);
         consume(';');
@@ -117,15 +121,17 @@ function parseProgram(tokens1) {
     function parseConditional() {
         const type = consume('tipo');
         consume('(');
-        parseExpresion(type);
+        console.log(tokens1)
+        //parseExpresion(type);
+        consume('IDENTIFICADOR')
         consume(')');
         consume('{');
-        parseProgram();
+        parseProgram(tokens1);
         consume('}');
-        if (tokens[currentTokenIndex].type === 'else') {
+        if (tokens1[currentTokenIndex].value === 'else') {
             consume('else');
             consume('{');
-            parseProgram();
+            parseProgram(tokens1);
             consume('}');
         }
     }
@@ -146,6 +152,7 @@ function parseProgram(tokens1) {
 
 
     while (currentTokenIndex < tokens1.length) {
+        console.log(currentTokenIndex);
         if (tokens1[currentTokenIndex].value === 'int' || tokens1[currentTokenIndex].value === 'string' || tokens1[currentTokenIndex].value === 'boolean') {
             parseDeclarationVariable();
         } else if (tokens1[currentTokenIndex].value === 'func') {
@@ -162,6 +169,7 @@ function parseProgram(tokens1) {
 }
 
 function validateString() {
+    currentTokenIndex = 0;
     const cadena = document.getElementById('variable').value;
     const tokens1 = tokenize(cadena);
     console.log(tokens1);
