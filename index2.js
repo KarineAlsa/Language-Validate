@@ -30,7 +30,7 @@ function evaluarCadena() {
 
 function automataRangoPersonalizado(cadena) {
     //declaración de varibles
-            //const patron = /^(int\s|string |boolean |)$/;
+            const patron = /^(int\s|string\s|boolean\s|)$/;
             //const patron = /^([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)$/; //nombres 
             //const patron = /^(true|false|[0-9]+|"([a-z|A-Z]+(([a-z|A-Z]|[0-9])+)*)")$/;
             
