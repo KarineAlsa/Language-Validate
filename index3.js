@@ -4,7 +4,7 @@ const tokens = [
     { type: 'else', regex: /^else/ },
     { type: 'tipo', regex: /^(int|boolean|string|if|func|for)/ },
     { type: 'boolean', regex: /^(true|false)+/ },
-    { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)((==|<=|>=|!|<|>){1})[a-zA-Z_]+([a-zA-Z0-9_]*)/ },
+    { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)((==|<=|>=|!|<|>){1})(([a-zA-Z_]+([a-zA-Z0-9_]*))|([1-9][0-9]*)|0)/ },
     { type: 'IDENTIFICADOR', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)/ },
     { type: 'int', regex: /^(([1-9][0-9]*)|0)/},
     { type: 'string', regex: /^"([\s"a-zA-Z0-9][a-zA-Z0-9_]*)*"/ },
