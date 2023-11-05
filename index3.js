@@ -1,10 +1,11 @@
 
 
 const tokens = [
-    { type: 'tipo', regex: /^(int|boolean|string|if|func|for|else)/ },
+    { type: 'else', regex: /^else/ },
+    { type: 'tipo', regex: /^(int|boolean|string|if|func|for)/ },
     { type: 'boolean', regex: /^(true|false)+/ },
+    { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)((==|<=|>=|!|<|>){1})[a-zA-Z_]+([a-zA-Z0-9_]*)/ },
     { type: 'IDENTIFICADOR', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)/ },
-    { type: '=', regex: /^=/ },
     { type: 'int', regex: /^(([1-9][0-9]*)|0)/},
     { type: 'string', regex: /^"([\s"a-zA-Z0-9][a-zA-Z0-9_]*)*"/ },
     { type: 'boolean', regex: /^(true|false)+/ },
@@ -13,19 +14,18 @@ const tokens = [
     { type: ')', regex: /^\)/ },
     { type: '{', regex: /^\{/ },
     { type: '}', regex: /^\}/ },
-    { type: 'if', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)()/ },
-    { type: 'else', regex: /^else/ },
     { type: 'for', regex: /^for/ },
     { type: ',', regex: /^,/ },
     { type: ';', regex: /^;/ },
-    { type: '>', regex: /^>/ },
-    { type: '<', regex: /^</ },
     { type: '+', regex: /^\+/ },
     { type: '-', regex: /^-/ },
     { type: '*', regex: /^\*/ },
     { type: '/', regex: /^\// },
     { type: '<=', regex: /^<=/ },
     { type: '>=', regex: /^>=/ },
+    { type: '>', regex: /^>/ },
+    { type: '<', regex: /^</ },
+    { type: '=', regex: /^=/ },
 ];
 
 
@@ -39,12 +39,12 @@ function tokenize(sourceCode) {
         for (const { type, regex } of tokens) {
             match = sourceCode.match(regex);
             
+            
             if (match && match.index === 0) {
-                
                 const value = match[0];
                 tokenizedCode.push({ type, value });
                 sourceCode = sourceCode.slice(value.length).trim();
-                
+                console.log(tokenizedCode)
                 foundMatch = true;
                 break;
             }
@@ -59,18 +59,22 @@ function tokenize(sourceCode) {
 }
 
 let currentTokenIndex = 0;
+let conditional = false;
+let elseif = false;
+let func = false;
+let cicle = false;
 function parseProgram(tokens1) {
     
     function consume(type) {
-        console.log(currentTokenIndex)
+        console.log(tokens1)
         const token = tokens1[currentTokenIndex];
-        
-        if (token && token.type === type) {
+
+        if (token && token.type == type) {
             const value = token.value;
             currentTokenIndex++;
             return value;
         } else {
-            if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean") {
+            if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean"||type==="else") {
                 let currentTokenIndexRep = currentTokenIndex;
                 currentTokenIndex = 0;
                 throw new Error(`Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
@@ -119,21 +123,26 @@ function parseProgram(tokens1) {
     }
 
     function parseConditional() {
+        conditional = true;
         const type = consume('tipo');
         consume('(');
-        console.log(tokens1)
-        //parseExpresion(type);
-        consume('IDENTIFICADOR')
+        parseExpresion('if');
+        //consume('IDENTIFICADOR')
         consume(')');
         consume('{');
         parseProgram(tokens1);
         consume('}');
-        if (tokens1[currentTokenIndex].value === 'else') {
+        console.log(tokens1[currentTokenIndex]);
+        if (tokens1[currentTokenIndex]!=undefined && tokens1[currentTokenIndex].value =='else') {
+            elseif = true;
+            console.log("entra")
             consume('else');
             consume('{');
             parseProgram(tokens1);
             consume('}');
         }
+        conditional = false;
+        elseif = false;
     }
 
     function parseCicloFor() {
@@ -152,7 +161,6 @@ function parseProgram(tokens1) {
 
 
     while (currentTokenIndex < tokens1.length) {
-        console.log(currentTokenIndex);
         if (tokens1[currentTokenIndex].value === 'int' || tokens1[currentTokenIndex].value === 'string' || tokens1[currentTokenIndex].value === 'boolean') {
             parseDeclarationVariable();
         } else if (tokens1[currentTokenIndex].value === 'func') {
@@ -162,7 +170,12 @@ function parseProgram(tokens1) {
             parseConditional();
         } else if (tokens1[currentTokenIndex].value === 'for') {
             parseCicloFor();
-        } else {
+        } else if (tokens1[currentTokenIndex].value === '}'){
+            break;
+        } else if (tokens1[tokens1.length-1].value === 'else' && conditional ==true){
+            break;
+        }
+        else {
             throw new Error('Error de sintaxis: Estructura no reconocida, pruebe con string,int,boolean,func,if,for...');
         }
     }
