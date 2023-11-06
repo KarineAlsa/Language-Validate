@@ -1,6 +1,6 @@
 const tokens = [
     { type: 'else', regex: /^else/ },
-    { type: 'tipo', regex: /^(int|boolean|string|if|func|for)\s+/ },
+    { type: 'tipo', regex: /^(int|boolean|string|if|func)\s+|for/ },
     { type: 'for', regex: /^(int)\s+/ },
     { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)\s*((==|<=|>=|!|<|>){1})\s*(([a-zA-Z_]+([a-zA-Z0-9_]*))|([1-9][0-9]*)|0)/ },
@@ -225,4 +225,6 @@ function validateString() {
     console.log("El código es sintácticamente válido.");
     
 }
+
+let string ="";
 
