@@ -38,19 +38,28 @@ function tokenize(sourceCode) {
             if (match && match.index === 0) {
                 const value = match[0].trim();
                 tokenizedCode.push({ type, value });
-                //console.log(tokenizedCode);
                 sourceCode = sourceCode.slice(value.length).trim();
                 foundMatch = true;
                 break;
             }
+            
         }
         
         if (!foundMatch) {
-            throw new Error('Error de tokenización: No se pudo analizar el código fuente');
+            resultado.textContent =`no encontrado: ${sourceCode} `;
+            resultado.style.color = 'Red';
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: `Error de lenguaje: No existe dentro del lenguaje: ${sourceCode}`,
+                showConfirmButton: false,
+                timer: 3000
+            })
+            throw new Error('Error de lenguaje: No existe dentro del lenguaje');
         }
     }
     
-    console.log(tokenizedCode)
+    
     return tokenizedCode;
 }
 
@@ -59,6 +68,7 @@ let conditional = false;
 let elseif = false;
 let func = false;
 let cicle = false;
+let resultado;
 function parseProgram(tokens1) {
     
     function consume(type) {
@@ -78,11 +88,29 @@ function parseProgram(tokens1) {
             if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean"||type==="else"||type==="for") {
                 let currentTokenIndexRep = currentTokenIndex;
                 currentTokenIndex = 0;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: `Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                resultado.textContent =`expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`;
+                resultado.style.color = 'Red';
+                
                 throw new Error(`Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
-                process.exit(1);
             }else{
                 let currentTokenIndexRep = currentTokenIndex;
                 currentTokenIndex = 0;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: `Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                resultado.textContent =`tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`;
+                resultado.style.color = 'Red';
                 
                 throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
             }
@@ -115,15 +143,16 @@ function parseProgram(tokens1) {
     }
 
     function parseParametros() {
-        console.log(tokens1[currentTokenIndex].type)
-        while (tokens1[currentTokenIndex].type === 'IDENTIFICADOR') {   
+        
+        while (tokens1[currentTokenIndex] &&tokens1[currentTokenIndex].type === 'IDENTIFICADOR') {   
             consume('IDENTIFICADOR');
-            if (tokens[currentTokenIndex].type !== ',') {
+            if (tokens1[currentTokenIndex].type !== ',') {
+                
                 break;
             }
             consume(',');
         }
-        if (tokens[currentTokenIndex].type === ',') {
+        if (tokens1[currentTokenIndex] &&tokens1[currentTokenIndex].type === ',') {
             throw new Error("Error: Coma no esperada al final de la lista de parámetros.");
         }
     }
@@ -138,10 +167,10 @@ function parseProgram(tokens1) {
         consume('{');
         parseProgram(tokens1);
         consume('}');
-        console.log(tokens1[currentTokenIndex]);
+       
         if (tokens1[currentTokenIndex]!=undefined && tokens1[currentTokenIndex].value =='else') {
             elseif = true;
-            console.log("entra")
+            
             consume('else');
             consume('{');
             parseProgram(tokens1);
@@ -153,7 +182,7 @@ function parseProgram(tokens1) {
 
     function parseCicloFor() {
         const type = consume('tipo');
-        console.log(type)
+        
 
             consume('(');
             parseInicial();
@@ -172,7 +201,7 @@ function parseProgram(tokens1) {
         consume('for')
         consume('IDENTIFICADOR')
         consume('=')
-        console.log(tokens1[currentTokenIndex].type)
+        
         if (tokens1[currentTokenIndex].type === 'IDENTIFICADOR'){
             consume('IDENTIFICADOR')
 
@@ -201,7 +230,7 @@ function parseProgram(tokens1) {
         } else if (tokens1[currentTokenIndex].value === 'func') {
             parseFunction();
         } else if (tokens1[currentTokenIndex].value === 'if') {
-            console.log(tokens1[currentTokenIndex].value);
+           
             parseConditional();
         } else if (tokens1[currentTokenIndex].value === 'for') {
             parseCicloFor();
@@ -211,18 +240,38 @@ function parseProgram(tokens1) {
             break;
         }
         else {
-            throw new Error('Error de sintaxis: Estructura no reconocida, pruebe con string,int,boolean,func,if,for...');
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: `Error de sintaxis: Estructura ${tokens1[currentTokenIndex].value} no reconocida, pruebe con string,int,boolean,func,if,for...`,
+                showConfirmButton: false,
+                timer: 3000
+            })
+            throw new Error('Error de sintaxis: Estructura no reconocida, pruebe con string, int, boolean, func, if, for...');
         }
     }
 }
 
 function validateString() {
+    resultado= document.getElementById('resultado');
+    resultado.textContent ="";
+    resultado.style.color = '';
     currentTokenIndex = 0;
     const cadena = document.getElementById('variable').value;
     const tokens1 = tokenize(cadena);
-    console.log(tokens1);
+   
     parseProgram(tokens1);
-    console.log("El código es sintácticamente válido.");
+    
+    resultado.textContent =`La cadena "${cadena}" es válida para el autómata.`;
+    resultado.style.color = 'Green';
+   
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `La cadena "${cadena}" es válida para el autómata.`,
+        showConfirmButton: false,
+        timer: 3000
+    })
     
 }
 

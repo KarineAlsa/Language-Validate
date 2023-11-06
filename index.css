@@ -3,6 +3,10 @@
     padding: 0%;
     box-sizing: 0%;
 }
+.resaltado {
+    color: red;
+    font-weight: bold;
+}
 
 .seccion1{
     /*background-color: rgb(49, 23, 59);*/
