@@ -1,10 +1,10 @@
 const tokens = [
     { type: 'else', regex: /^else/ },
-    { type: 'tipo', regex: /^(int|boolean|string|if|func)\s+|for/ },
+    { type: 'tipo', regex: /^(int|boolean|string|func)\s+|for|if/ },
     { type: 'for', regex: /^(int)\s+/ },
-    { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)\s*((==|<=|>=|!|<|>){1})\s*(([a-zA-Z_]+([a-zA-Z0-9_]*))|([1-9][0-9]*)|0)/ },
-    { type: 'IDENTIFICADOR', regex: /^(?!int\b)(?!string\b)(?!boolean\b)[a-zA-Z_]([a-zA-Z0-9_]*)/ },
+    { type: 'IDENTIFICADOR', regex: /^(?!int\b)(?!string\b)(?!boolean\b)(?!true\b)(?!false\b)[a-zA-Z_]([a-zA-Z0-9_]*)/ },
+    { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'int', regex: /^(([1-9][0-9]*)|0)/},
     { type: 'string', regex: /^"([\s"a-zA-Z0-9][a-zA-Z0-9_]*)*"/ },
     { type: 'boolean', regex: /^(true|false)+/ },
@@ -20,10 +20,6 @@ const tokens = [
     { type: '-', regex: /^-/ },
     { type: '*', regex: /^\*/ },
     { type: '/', regex: /^\// },
-    { type: '<=', regex: /^<=/ },
-    { type: '>=', regex: /^>=/ },
-    { type: '>', regex: /^>/ },
-    { type: '<', regex: /^</ },
     { type: '=', regex: /^=/ },
 ];
 
@@ -42,7 +38,7 @@ function tokenize(sourceCode) {
             if (match && match.index === 0) {
                 const value = match[0].trim();
                 tokenizedCode.push({ type, value });
-                console.log(sourceCode);
+                //console.log(tokenizedCode);
                 sourceCode = sourceCode.slice(value.length).trim();
                 foundMatch = true;
                 break;
@@ -67,9 +63,10 @@ function parseProgram(tokens1) {
     
     function consume(type) {
         const token = tokens1[currentTokenIndex];
-        //console.log(type,token.type,token.value);
+        
 
         if (token && token.type == type) {
+            
             const value = token.value;
             currentTokenIndex++;
             return value;
@@ -86,7 +83,7 @@ function parseProgram(tokens1) {
             }else{
                 let currentTokenIndexRep = currentTokenIndex;
                 currentTokenIndex = 0;
-                console.log(currentTokenIndexRep)
+                
                 throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
             }
         }
@@ -96,7 +93,7 @@ function parseProgram(tokens1) {
         
         const type = consume('tipo');
         consume('IDENTIFICADOR');
-        console.log(type);
+        
         consume('=');
         parseExpresion(type);
         consume(';');
@@ -113,18 +110,21 @@ function parseProgram(tokens1) {
         parseParametros();
         consume(')');
         consume('{');
-        parseProgram();
+        parseProgram(tokens1);
         consume('}');
     }
 
     function parseParametros() {
-        while (tokens[currentTokenIndex].type === 'tipo') {
-            consume('tipo');
+        console.log(tokens1[currentTokenIndex].type)
+        while (tokens1[currentTokenIndex].type === 'IDENTIFICADOR') {   
             consume('IDENTIFICADOR');
             if (tokens[currentTokenIndex].type !== ',') {
                 break;
             }
             consume(',');
+        }
+        if (tokens[currentTokenIndex].type === ',') {
+            throw new Error("Error: Coma no esperada al final de la lista de parámetros.");
         }
     }
 
@@ -132,7 +132,7 @@ function parseProgram(tokens1) {
         conditional = true;
         const type = consume('tipo');
         consume('(');
-        parseExpresion('if');
+        consume('if');
         //consume(type)
         consume(')');
         consume('{');
