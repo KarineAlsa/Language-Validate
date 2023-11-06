@@ -1,8 +1,7 @@
-
-
 const tokens = [
     { type: 'else', regex: /^else/ },
     { type: 'tipo', regex: /^(int|boolean|string|if|func|for)/ },
+    { type: 'for', regex: /^int/ },
     { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)((==|<=|>=|!|<|>){1})(([a-zA-Z_]+([a-zA-Z0-9_]*))|([1-9][0-9]*)|0)/ },
     { type: 'IDENTIFICADOR', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)/ },
@@ -10,14 +9,14 @@ const tokens = [
     { type: 'string', regex: /^"([\s"a-zA-Z0-9][a-zA-Z0-9_]*)*"/ },
     { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'func', regex: /^function/ },
+    { type: 'opes', regex: /^((\+){2})|((\-){2})/ },
     { type: '(', regex: /^\(/ },
     { type: ')', regex: /^\)/ },
     { type: '{', regex: /^\{/ },
     { type: '}', regex: /^\}/ },
-    { type: 'for', regex: /^for/ },
     { type: ',', regex: /^,/ },
     { type: ';', regex: /^;/ },
-    { type: '+', regex: /^\+/ },
+    { type: '+', regex: /^(\+){1}/ },
     { type: '-', regex: /^-/ },
     { type: '*', regex: /^\*/ },
     { type: '/', regex: /^\// },
@@ -26,6 +25,7 @@ const tokens = [
     { type: '>', regex: /^>/ },
     { type: '<', regex: /^</ },
     { type: '=', regex: /^=/ },
+    { type: '=', regex: /^/ },
 ];
 
 
@@ -44,17 +44,17 @@ function tokenize(sourceCode) {
                 const value = match[0];
                 tokenizedCode.push({ type, value });
                 sourceCode = sourceCode.slice(value.length).trim();
-                console.log(tokenizedCode)
                 foundMatch = true;
                 break;
             }
         }
-
+        
         if (!foundMatch) {
             throw new Error('Error de tokenización: No se pudo analizar el código fuente');
         }
     }
     
+    console.log(tokenizedCode)
     return tokenizedCode;
 }
 
@@ -66,23 +66,29 @@ let cicle = false;
 function parseProgram(tokens1) {
     
     function consume(type) {
-        console.log(tokens1)
         const token = tokens1[currentTokenIndex];
+        //console.log(type,token.type,token.value);
 
         if (token && token.type == type) {
             const value = token.value;
             currentTokenIndex++;
             return value;
-        } else {
-            if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean"||type==="else") {
+        } else if(token && type== 'for' && token.value=="int") {
+            const value = token.value;
+            currentTokenIndex++;
+            return value;
+        }else {
+            if(type==="if"||type==="string"||type==="int"||type==="func"||type==="boolean"||type==="else"||type==="for") {
                 let currentTokenIndexRep = currentTokenIndex;
                 currentTokenIndex = 0;
                 throw new Error(`Error de sintaxis: Se esperaba un token de tipo expresión ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
                 process.exit(1);
+            }else{
+                let currentTokenIndexRep = currentTokenIndex;
+                currentTokenIndex = 0;
+                console.log(currentTokenIndexRep)
+                throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
             }
-            let currentTokenIndexRep = currentTokenIndex;
-            currentTokenIndex = 0;
-            throw new Error(`Error de sintaxis: Se esperaba un token de tipo ${type} después de ${tokens1[currentTokenIndexRep-1].value}`);
         }
     }
 
@@ -127,7 +133,7 @@ function parseProgram(tokens1) {
         const type = consume('tipo');
         consume('(');
         parseExpresion('if');
-        //consume('IDENTIFICADOR')
+        //consume(type)
         consume(')');
         consume('{');
         parseProgram(tokens1);
@@ -146,18 +152,41 @@ function parseProgram(tokens1) {
     }
 
     function parseCicloFor() {
-        consume('for');
-        consume('(');
-        parseInicializacion();
-        consume(';');
-        parseCondicion();
-        consume(';');
-        parseActualizacion();
-        consume(')');
-        consume('{');
-        parseProgram();
-        consume('}');
+        const type = consume('tipo');
+        console.log(type)
+
+            consume('(');
+            parseInicial();
+            //consume('inicial')
+            consume(';');
+            parseCondicion();
+            consume(';');
+            parseActualizacion();
+            consume(')');
+            consume('{');
+            parseProgram(tokens1);
+            consume('}');
+        
     }
+    function parseInicial() {
+        consume('for')
+        consume('IDENTIFICADOR')
+        consume('=')
+        parseExpresion('int')
+    }
+
+    function parseCondicion() {
+        consume('if')
+        
+    }
+    function parseActualizacion() {
+        consume('IDENTIFICADOR')
+        consume('opes')
+
+        
+    }
+    
+
 
 
     while (currentTokenIndex < tokens1.length) {
