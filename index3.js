@@ -1,7 +1,7 @@
 const tokens = [
     { type: 'else', regex: /^else/ },
-    { type: 'tipo', regex: /^(int|boolean|string|if|func|for)/ },
-    { type: 'for', regex: /^int/ },
+    { type: 'tipo', regex: /^(int|boolean|string|if|func|for)\s+/ },
+    { type: 'for', regex: /^(int)\s+/ },
     { type: 'boolean', regex: /^(true|false)+/ },
     { type: 'if', regex: /^[a-zA-Z_]+([a-zA-Z0-9_]*)\s*((==|<=|>=|!|<|>){1})\s*(([a-zA-Z_]+([a-zA-Z0-9_]*))|([1-9][0-9]*)|0)/ },
     { type: 'IDENTIFICADOR', regex: /^[a-zA-Z_]([a-zA-Z0-9_]*)/ },
@@ -25,7 +25,6 @@ const tokens = [
     { type: '>', regex: /^>/ },
     { type: '<', regex: /^</ },
     { type: '=', regex: /^=/ },
-    { type: '=', regex: /^/ },
 ];
 
 
@@ -41,8 +40,9 @@ function tokenize(sourceCode) {
             
             
             if (match && match.index === 0) {
-                const value = match[0];
+                const value = match[0].trim();
                 tokenizedCode.push({ type, value });
+                console.log(sourceCode);
                 sourceCode = sourceCode.slice(value.length).trim();
                 foundMatch = true;
                 break;
