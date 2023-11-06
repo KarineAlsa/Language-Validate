@@ -3,30 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/2360/2360235.png">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <script src="index3.js"></script>
-    <title>Automata</title>
-</head>
-<body>
-    <section class="seccion1">
-        <div class="container">
-            <h1>Automata Rango Personalizado</h1>
-            <p>Ingresa una cadena en el formato gza-001-a al haz-999-a</p>
-            <h2 id="resultado"></h2>
-            <div class="datos">
-                <input type="text" id="variable" placeholder="variable">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/2360/2360235.png">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="sweetalert2.all.min.js"></script>
+        <script src="sweetalert2.min.js"></script>
+        <script src="index2.js"></script>
+        <link rel="stylesheet" href="sweetalert2.min.css">
+        <title>AK! Language</title>
+    </head>
+    <body>
+        <section class="seccion1">
+            <div class="container">
+                <h1>Validación del lenguaje</h1>
+                <br><br>
+                <h2 id="resultado"></h2>
+                <div class="datos">
+                    <input type="text" id="variable" placeholder="variable">
+                </div>
+                <div class="contenerBoton">
+                    <button class="evaluar" onclick="evaluarCadena()">Evaluar</button>
+                    
+                </div>  
             </div>
-            <div class="contenerBoton">
-                <button class="evaluar" onclick="evaluarCadena()">Evaluar</button>
-                
-            </div>  
-        </div>
-    </section>
-</body>
-
-</html>
+            <div class="container22">
+                <h3>Ejemplos</h3>
+                <div class="container2">
+                    <div class="datos2">
+                        <p>Declaración de variables</p>
+                        <table>
+                            <tr>
+                              <th>TD</th>
+                              <th>N</th>
+                              <th>=</th>
+                              <th>V</th>
+                            </tr>
+                            <tr>
+                              <td>boolean</td>
+                              <td>boolean3</td>
+                              <td>=</td>
+                              <td>true/false</td>
+                            </tr>
+                            <tr>
+                              <td>int</td>
+                              <td>enter01</td>
+                              <td>=</td>
+                              <td>645</td>
+                            </tr>
+                            <tr>
+                              <td>string</td>
+                              <td>cadena2</td>
+                              <td>=</td>
+                              <td>"alas"</td>
+                            </tr>
+                          </table>
+                    </div>
+                    <div class="datos2">
+                        <p>Declaración de funciones</p>
+                        <table>
+                              <td>func “funcion1” ( ) {
+                                contenido
+                                }
+                            </td>
+                            </tr>
+                          </table>
+                    </div>
+                    <div class="datos2">
+                        <p>Declaración de ciclos</p>
+                        <table>
+                              <td>for (int variable=x; variable>= variable1; variable++){
+                                código
+                                }
+                            </td>
+                            </tr>
+                          </table>
+                    </div>
+                    <div class="datos2">
+                        <p>Declaración de condicionales</p>
+                        <table>
+                              <td>if (mundo!hola2) {
+                                contenido
+                                } else {
+                                contenido
+                                }
+                            </td>
+                            </tr>
+                          </table>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </body>
+    
+    </html>
