@@ -274,6 +274,3 @@ function validateString() {
     })
     
 }
-
-
-

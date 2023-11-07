@@ -17,14 +17,14 @@
 background: -webkit-linear-gradient(to right, #7BC6CC, #BE93C5);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #7BC6CC, #BE93C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     width: 100%;
-    height: 100vh;
+    height: 125vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     .container{
-        width: 60%;
-        height: 49vh;
+        width: 80%;
+        height: 72vh;
         background-color: #fffdfd;
         border-radius: 4px;
         border-color: transparent;
@@ -162,8 +162,8 @@ h3{
     
 }
 .container22{
-    width: 60%;
-    height: 57vh;
+    width: 80%;
+    height: 60vh;
     background-color: #fffdfd;
     border-radius: 4px;
     border-color: transparent;
