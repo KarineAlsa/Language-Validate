@@ -27,6 +27,7 @@ const tokens = [
 function tokenize(sourceCode) {
     const tokenizedCode = [];
     let match;
+    console.log(sourceCode)
     
     while (sourceCode) {
         let foundMatch = false;
@@ -220,9 +221,6 @@ function parseProgram(tokens1) {
 
         
     }
-    
-
-
 
     while (currentTokenIndex < tokens1.length) {
         if (tokens1[currentTokenIndex].value === 'int' || tokens1[currentTokenIndex].value === 'string' || tokens1[currentTokenIndex].value === 'boolean') {
