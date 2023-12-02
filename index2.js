@@ -19,6 +19,16 @@ constructor() {
         cicle_statement: ['cicle_statement', '(','int_declaration','string_literal','equal','number','pc','','(','param' ,')', '{', 'program', '}']
     };
 
+    this.productions1 = {
+        A: {},
+        int_declaration: ['int_declaration', 'string_literal', 'equal', 'number', 'pc'],
+        string_declaration: ['string_declaration', 'string_literal', 'equal','string', 'pc'],
+        boolean_declaration: ['boolean_declaration', 'string_literal', 'equal', 'true_or_false', 'pc'],
+        if_statement: ['if_statement', '(', 'conditional', ')', '{', 'program', '}'],
+        func_statement: ['func_statement', 'string','(',')', '{', '}'],
+        cicle_statement: ['cicle_statement', '(','int_declaration','string_literal','equal','number','pc','','(','param' ,')', '{', 'program', '}']
+    };
+
     this.dictionary = [
         { type: 'else', regex: /^else/ },
         { type: 'int_declaration', regex: /^int/ },
@@ -119,6 +129,6 @@ analyze() {
 
 // Ejemplo de uso
 const syntaxAnalyzer = new SyntaxAnalyzer();
-syntaxAnalyzer.tokenize('func "nuevo" (){}');
+syntaxAnalyzer.tokenize('int nuevo');
 
 syntaxAnalyzer.analyze();
