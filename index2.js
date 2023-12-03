@@ -132,3 +132,61 @@ const syntaxAnalyzer = new SyntaxAnalyzer();
 syntaxAnalyzer.tokenize('int nuevo');
 
 syntaxAnalyzer.analyze();
+
+
+const validateString = () => {
+    
+
+    const cadena = "int variable = 1;";
+    const resultado = cadena.split(" ");
+
+    state = getStructure(resultado)
+    
+    console.log(state);
+    
+    for (let i = 0; i < resultado.length; i++) {
+        const span = document.createElement('span');
+        let palabra = resultado[i]
+        state = charValidate(palabra, state)
+        stateError= state==undefined ? "error-no" : state
+        console.log(state)
+
+        if (state == undefined || stateError[0] == "error") {
+            span.textContent = palabra;
+            
+            setTimeout(() => {
+                span.style.backgroundColor = 'red';
+            }, i * 500);
+            console.log('no chido'+ i+state )
+            return
+        } else {
+            span.textContent = palabra;
+            console.log("chido" + i + state)
+            setTimeout(() => {
+                span.style.backgroundColor = 'lightgreen';
+            }, i * 500);
+        }
+        
+
+    }
+    
+}
+
+function charValidate(char, currentState) {
+    if (char) {
+        if (gramatica[currentState] && gramatica[currentState].length > 0) {
+            for (let state of gramatica[currentState]) {
+                if (state.hasOwnProperty('regexp')){
+
+                
+                if (state.regexp.test(char)) {
+                    console.log(state)
+                    return state.nextState;
+                }
+            }
+
+            }
+            return gramatica[currentState].error
+        }
+    }
+}
