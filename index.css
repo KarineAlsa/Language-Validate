@@ -88,7 +88,23 @@ input:focus::placeholder{
     flex-direction: column;
     align-items: center;
 }
-
+.pilaTable{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 25%;
+    margin-top: 3%;
+    background-color: rgb(240, 223, 240);
+}
+.pilaTable h6{
+    font-family: 'Quicksand', sans-serif;
+    font-size: large;
+}
+.pilaTable tr{
+    font-family: arial, sans-serif;
+    font-size: small;
+}
 button{
     margin-top: 1.5rem;
     width: 10rem;
