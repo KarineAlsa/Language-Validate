@@ -1,6 +1,6 @@
 class Automaton {
 
-//esto es de adolfo 
+//esto es de prueba
 
     current_rule_group_index = -1
     current_structure_key = null
