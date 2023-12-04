@@ -339,5 +339,226 @@
             "reg": null,
             "treat_as_word": true
         }
+    },
+    "conditional": {
+        "w": {
+            "next": [
+                [
+                    "X",
+                    "Y"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "X": {
+            "next": [],
+            "reg": "^if$",
+            "treat_as_word": true
+        },
+        "Y": {
+            "next": [
+                [
+                    "PI",
+                    "Z"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PI": {
+            "next": [],
+            "reg": "^\\($",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "Z": {
+            "next": [
+                [
+                    "AB",
+                    "AC"
+                ],
+                [
+                    "AE",
+                    "AC"
+                ],
+                [
+                    "AG",
+                    "AC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AB": {
+            "next": [
+                [
+                    "C",
+                    "AD"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AD": {
+            "next": [
+                [
+                    "OP",
+                    "CG"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "OP": {
+            "next": [],
+            "reg": "^(>|<|==|!=)$",
+            "treat_as_word": true
+        },
+        "CG": {
+            "next": [],
+            "reg": "^(true|false)$",
+            "treat_as_word": true
+        },
+        "AC": {
+            "next": [
+                [
+                    "PF",
+                    "AI"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PF": {
+            "next": [],
+            "reg": "^\\)$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "AE": {
+            "next": [
+                [
+                    "C",
+                    "AF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AF": {
+            "next": [
+                [
+                    "OP",
+                    "C"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AG": {
+            "next": [
+                [
+                    "C",
+                    "AH"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AH": {
+            "next": [
+                [
+                    "OP",
+                    "C"
+                ],
+                [
+                    "OP",
+                    "RD"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AI": {
+            "next": [
+                [
+                    "CI",
+                    "AJ"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AJ": {
+            "next": [
+                [
+                    "CT",
+                    "AK"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AK": {
+            "next": [
+                [
+                    "CF",
+                    "AL"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "CI": {
+            "next": [],
+            "reg": "^{$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "CF": {
+            "next": [],
+            "reg": "^}$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "AL": {
+            "next": [
+                [
+                    "AM",
+                    "AN"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AM": {
+            "next": [],
+            "reg": "^else$",
+            "treat_as_word": false
+        },
+        "AN": {
+            "next": [
+                [
+                    "CI",
+                    "AO"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AO": {
+            "next": [
+                [
+                    "CT",
+                    "CF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        }
     }
 }
