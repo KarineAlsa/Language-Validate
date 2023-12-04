@@ -1,0 +1,436 @@
+{
+    "variable": {
+        "S": {
+            "next": [
+                [
+                    "A",
+                    "B"
+                ],
+                [
+                    "A1",
+                    "B1"
+                ],
+                [
+                    "A2",
+                    "B2"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "A": {
+            "next": [],
+            "reg": "^str$",
+            "treat_as_word": true
+        },
+        "A1": {
+            "next": [],
+            "reg": "^num$",
+            "treat_as_word": true
+        },
+        "A2": {
+            "next": [],
+            "reg": "^bool$",
+            "treat_as_word": true
+        },
+        "B": {
+            "next": [
+                [
+                    "PA",
+                    "C"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "B1": {
+            "next": [
+                [
+                    "PA",
+                    "C1"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "B2": {
+            "next": [
+                [
+                    "PA",
+                    "C2"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PA": {
+            "next": [
+                [
+                    "L",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "C1": {
+            "next": [
+                [
+                    "DP",
+                    "D1"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "C2": {
+            "next": [
+                [
+                    "DP",
+                    "D2"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "L": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "D1": {
+            "next": [
+                [
+                    "NU",
+                    "PC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "D2": {
+            "next": [
+                [
+                    "E2",
+                    "PC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "C": {
+            "next": [
+                [
+                    "DP",
+                    "E"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "NU": {
+            "next": [
+                [
+                    "D",
+                    "NU"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "E2": {
+            "next": [],
+            "reg": "^(true|false)$",
+            "treat_as_word": true
+        },
+        "DP": {
+            "next": [],
+            "reg": "^:$",
+            "treat_as_word": true
+        },
+        "D": {
+            "next": [],
+            "reg": "^[0-9]$",
+            "treat_as_word": false
+        },
+        "E": {
+            "next": [
+                [
+                    "F",
+                    "G"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "F": {
+            "next": [],
+            "reg": "^\"$",
+            "treat_as_word": true
+        },
+        "G": {
+            "next": [
+                [
+                    "PA",
+                    "H"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "H": {
+            "next": [
+                [
+                    "F",
+                    "PC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PC": {
+            "next": [],
+            "reg": "^;$",
+            "treat_as_word": true,
+            "last_transition": true
+        }
+    },
+    "function": {
+        "I": {
+            "next": [
+                [
+                    "J",
+                    "K"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "J": {
+            "next": [],
+            "reg": "^fn$",
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "K": {
+            "next": [
+                [
+                    "PA",
+                    "M"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "M": {
+            "next": [
+                [
+                    "PN",
+                    "PC"
+                ],
+                [
+                    "PN",
+                    "PC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "PA": {
+            "next": [
+                [
+                    "L",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "L": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "P": {
+            "next": [
+                [
+                    "PF",
+                    "Q"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "Q": {
+            "next": [
+                [
+                    "DP",
+                    "R"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "R": {
+            "next": [
+                [
+                    "A",
+                    "S"
+                ],
+                [
+                    "A1",
+                    "S"
+                ],
+                [
+                    "A2",
+                    "S"
+                ],
+                [
+                    "A3",
+                    "S"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "A": {
+            "next": [],
+            "reg": "^str$",
+            "treat_as_word": true
+        },
+        "A1": {
+            "next": [],
+            "reg": "^num$",
+            "treat_as_word": true
+        },
+        "A2": {
+            "next": [],
+            "reg": "^bool$",
+            "treat_as_word": true
+        },
+        "S": {
+            "next": [
+                [
+                    "CI",
+                    "T"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "CI": {
+            "next": [],
+            "reg": "^{$",
+            "treat_as_word": true,
+            "scopable": true
+        },
+        "T": {
+            "next": [
+                [
+                    "CN",
+                    "CF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "A3": {
+            "next": [],
+            "reg": "^void$",
+            "treat_as_word": true
+        }
+    },
+    "conditional": {
+        "U": {
+            "next": [
+                [
+                    "V",
+                    "W"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "V": {
+            "next": [],
+            "reg": "^if$",
+            "treat_as_word": true
+        },
+        "W": {
+            "next": [
+                [
+                    "PA",
+                    "X"
+                ],
+                [
+                    "NU",
+                    "X"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PA": {
+            "next": [
+                [
+                    "L",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "L": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "X": {
+            "next": [
+                [
+                    "OP",
+                    "Y"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "Y": {
+            "next": [
+                [
+                    "PA",
+                    "Z"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "OP": {
+            "next": [],
+            "reg": "^(>|<|==|!=)$",
+            "treat_as_word": true
+        },
+        "Z": {
+            "next": [],
+            "reg": "^{$",
+            "treat_as_word": true,
+            "last_transition": true,
+            "scopable": true
+        }
+    }
+}
