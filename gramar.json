@@ -142,7 +142,7 @@
                 ]
             ],
             "reg": null,
-            "treat_as_word": true
+            "treat_as_word": false
         },
         "E2": {
             "next": [],
@@ -233,17 +233,52 @@
         "M": {
             "next": [
                 [
-                    "PN",
-                    "PC"
-                ],
-                [
-                    "PN",
-                    "PC"
+                    "PI",
+                    "N"
                 ]
             ],
             "reg": null,
             "treat_as_word": true,
             "last_transition": false
+        },
+        "N": {
+            "next": [
+                [
+                    "A",
+                    "O"
+                ],
+                [
+                    "A1",
+                    "O"
+                ],
+                [
+                    "A2",
+                    "O"
+                ],
+                [
+                    "PF",
+                    "Q"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "O": {
+            "next": [
+                [
+                    "PA",
+                    "P"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PI": {
+            "next": [
+                []
+            ],
+            "reg": "^\\($",
+            "treat_as_word": true
         },
         "PA": {
             "next": [
@@ -271,7 +306,14 @@
                 ]
             ],
             "reg": null,
-            "treat_as_word": false
+            "treat_as_word": true
+        },
+        "PF": {
+            "next": [
+                []
+            ],
+            "reg": "^\\)$",
+            "treat_as_word": true
         },
         "Q": {
             "next": [
@@ -282,6 +324,11 @@
             ],
             "reg": null,
             "treat_as_word": false
+        },
+        "DP": {
+            "next": [],
+            "reg": "^:$",
+            "treat_as_word": true
         },
         "R": {
             "next": [
@@ -334,7 +381,8 @@
             "next": [],
             "reg": "^{$",
             "treat_as_word": true,
-            "scopable": true
+            "scopable": true,
+            "last_transition": true
         },
         "T": {
             "next": [
@@ -431,6 +479,237 @@
             "treat_as_word": true,
             "last_transition": true,
             "scopable": true
+        }
+    },
+    "loop": {
+        "AA": {
+            "next": [
+                [
+                    "AB",
+                    "AC"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "DP": {
+            "next": [],
+            "reg": "^:$",
+            "treat_as_word": true
+        },
+        "AB": {
+            "next": [],
+            "reg": "^for$",
+            "treat_as_word": true
+        },
+        "PI": {
+            "next": [],
+            "reg": "^\\($",
+            "treat_as_word": true
+        },
+        "Q": {
+            "next": [
+                [
+                    "DP",
+                    "R"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "AC": {
+            "next": [
+                [
+                    "PI",
+                    "AD"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AD": {
+            "next": [
+                [
+                    "PA", "AE"
+                ],
+                [
+                    "NU","AH"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PF": {
+            "next": [
+                []
+            ],
+            "reg": "^\\)$",
+            "treat_as_word": true
+        },
+        "P": {
+            "next": [
+                [
+                    "PI",
+                    "Q"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AE": {
+            "next": [
+                [
+                    "AF",
+                    "AG"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AF": {
+            "next": [],
+            "reg": "^:$",
+            "treat_as_word": true
+        },
+        "AG": {
+            "next": [
+                [
+                    "PA",
+                    "AH"
+                ],
+                [
+                    "NU",
+                    "AH"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AH": {
+            "next": [
+                [
+                    "CM",
+                    "AK"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "CM": {
+            "next": [],
+            "reg": "^,$",
+            "treat_as_word": true
+        },
+        "AK": {
+            "next": [
+                [
+                    "PA",
+                    "AL"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AL": {
+            "next": [
+                [
+                    "OP",
+                    "AM"
+                ]
+            ]
+        },
+        "AM": {
+            "next": [
+                [
+                    "PA",
+                    "AN"
+                ],
+                [
+                    "CM",
+                    "AO"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AN": {
+            "next": [
+                [
+                    "CM",
+                    "AO"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AO": {
+            "next": [
+                [
+                    "PA",
+                    "AP"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AP": {
+            "next": [
+                [
+                    "OP2",
+                    "AQ"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "OP2": {
+            "next": [],
+            "reg": "^(\\+\\+|\\-\\-)$",
+            "treat_as_word": true
+        },
+        "AQ": {
+            "next": [
+                [
+                    "PF",
+                    "AR"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AR": {
+            "next": [
+                [
+                    "CI",
+                    "CF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "CI": {
+            "next": [],
+            "reg": "^{$",
+            "treat_as_word": true,
+            "scopable": true
+        },
+        "PA": {
+            "next": [
+                [
+                    "L",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "L": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
         }
     }
 }
