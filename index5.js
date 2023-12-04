@@ -1,6 +1,6 @@
 
-const stack = []
-
+const stack = ['$']
+let terminal;
 let gramatica = {
     structures:[
         {   nextState:'S', regexp:/^(int|string|boolean)$/,  error: "estructura no definida1111", value: 'S' , terminal: false},
@@ -10,111 +10,34 @@ let gramatica = {
         {   regexp:/^/, error: "estructura no definida", value: 'error' , terminal: false},
     ],
     S: [
-        {   nextState:'A', regexp:/^int/, error: "error en declaración de estructura", value: ['B','A'] , terminal: false,length:3},
-        {   nextState:'CC', regexp:/^string/, error: "error en declaración de estructura", value: ['CD','CC'], terminal: false,length:6},
-        {   nextState:'CA', regexp:/^boolean/, error: "error en declaración de estructura", value: ['CB','CA'] , terminal: false,length:7},
+        {   nextState:'A', regexp:/^int/, error: "error en declaración de estructura", value: ['B','A'] , terminal: false},
+        {   nextState:'CC', regexp:/^string/, error: "error en declaración de estructura", value: ['CD','CC'], terminal: false},
+        {   nextState:'CA', regexp:/^boolean/, error: "error en declaración de estructura", value: ['CB','CA'] , terminal: false},
         ],
     A: [
-        {   nextState: "B", regexp: /^/ ,error: "error en nombre",value: ['CB','CA'], terminal:true   },
+        {   nextState: "B", regexp: /^int/ ,error: "error en nombre",value: "int", terminal:true   },
     ],
     B: [
         {   nextState: "C", error: "error en nombre",value: ['D','C'], terminal:false   },
     ],
     C: [
-        {   nextState: "LE", error: "error en nombre",value: ['RL','LE'],  terminal:true },
+        {   nextState: "LE", error: "error en nombre",value: ['RL','LE'],  terminal:false },
     ],
     LE: [
-        {   nextState: "RL",regexp: /^[A-Za-z]/, error: "error en nombre", terminal:false   }
+        {   nextState: "RL",regexp: /^/, error: "error en nombre",value:"a-z", terminal:true   }
     ],
     RL: [
-    {   nextState: "LE", error: "error en nombre", terminal:false   }
+    {   nextState: "LE", regexp : /^[A-Za-z]/,error: "error en nombre",value:['RL','LE'], terminal:false   },
+    {   nextState: "DI", regexp : /^[0-9]/,error: "error en nombre",value:['RD','DI'], terminal:false   }
     ],
-    "q5": [
-        {
-            nextState: "q6",
-            rule: /^-$/,
-            error: "error-q5"
-        }
+    CC: [
+        {   nextState: "B", regexp: /^string/ ,error: "error en nombre",value: "string", terminal:true   },
     ],
-    "q6": [
-        {
-            nextState: "q7",
-            rule: /^0$/,
-            error: "error-q6"
-        },
-        {
-            nextState: "q8",
-            rule: /^1$/,
-            error: "error-q6"
-        }
+    CA: [
+        {   nextState: "B", regexp: /^boolean/ ,error: "error en nombre",value: "boolean", terminal:true   },
     ],
-    "q7": [
-        {
-            nextState: "q9",
-            rule: /^0$/,
-            error: "error-q7"
-        },
-        {
-            nextState: "q10",
-            rule: /^[1-9]$/,
-            error: "error-q7"
-        }
-    ],
-    "q8": [
-        {
-            nextState: "q13",
-            rule: /^[0-9]$/,
-            error: "error-q8"
-        }
-    ],
-    "q9": [
-        {
-            nextState: "q11",
-            rule: /^[1-9]$/,
-            error: "error-q9"
-        }
-    ],
-    "q10": [
-        {
-            nextState: "q15",
-            rule: /^[0-9]$/,
-            error: "error-q10"
-        }
-    ],
-    "q11": [
-        {
-            nextState: "q15",
-            rule: /^-$/,
-            error: "error-11"
-        }
-    ],
-    "q12": [
-        {
-            nextState: "q15",
-            rule: /^-$/,
-            error: "error-q12"
-        }
-    ],
-    "q13": [
-        {
-            nextState: "q14",
-            rule: /^[0-9]$/,
-            error: "error-q13"
-        }
-    ],
-    "q14": [
-        {
-            nextState: "q15",
-            rule: /^-$/,
-            error: "error-q14"
-        }
-    ],
-    "q15": [
-        {
-            nextState: "q16",
-            rule: /^[a-z]$/,
-            error: "error-q15"
-        }
+    CD: [
+        {   nextState: "B", regexp: /^boolean/ ,error: "error en nombre",value: "boolean", terminal:true   },
     ],
 }
 
@@ -125,124 +48,190 @@ function getStructure(resultado){
     for (const estructura of gramatica.structures) {
 
         if(estructura.regexp.test(first)&& estructura.hasOwnProperty('nextState')){
-            
+            terminal = estructura.terminal
             return [estructura.nextState,first]
         }
         
     }
     const err = gramatica.structures[gramatica.structures.length - 1]
     
-    return err
+    return [err,0]
     
 
 }
 
 
-function getNewState(){
+function getNewState(statement,a){
+    if(statement!==undefined){
+    for (const estructura of gramatica[statement]){
+        if(estructura.hasOwnProperty('regexp')){
+            if(estructura.regexp.test(a)&& estructura.hasOwnProperty('nextState')){
+                terminal = estructura.terminal
+                
+                return estructura.nextState
+            }
+        }
+    }
+}
+}
+function getProduction(statement,a) {
+    if (gramatica.hasOwnProperty(statement)){
+        
+        
+        if(statement =="S"){
+            for (const estructura of gramatica.S){
+                if(estructura.hasOwnProperty('regexp')){
+                    if(estructura.regexp.test(a)&& estructura.hasOwnProperty('nextState')){
+                        terminal = estructura.terminal
+                        
+                        return estructura.value
+                    }
+                }
+            }
 
+        }
+        return gramatica[statement][0].value
 
+    }
+    return false
+    
+}
+
+function getValue(statement,a) {
+
+    if (gramatica.hasOwnProperty(statement)){
+
+        if(statement =="S"){
+            for (const estructura of gramatica.S){
+                if(estructura.hasOwnProperty('regexp')){
+                    if(estructura.regexp.test(a)&& estructura.hasOwnProperty('nextState')){
+                        terminal = estructura.terminal
+                        
+                        return estructura.value
+                    }
+                }
+            }
+
+        }
+        return gramatica[statement].value
+
+    }
+    return false
+    
+}
+function getValueRefex(x,cadena) {
+
+    for (const re of gramatica[x]) {
+        
+        const leMatch = cadena.match(re.regexp);
+        return leMatch ? leMatch[0] : null;
+    }
 }
 
 
 const validateString = () => {
-    
-
-    const cadena = "int variable = 1;";
-    const resultado = cadena.split("");
+    const cadena = "int variable =  1;";
+    let resultado = cadena.split("");
 
     [state,struct] = getStructure(resultado)
     
-    stack.push(state)
-    let index = 0;
-    let newCadena = []
-    newCadena.push(struct)
-    for(let i = struct.length; i<resultado.length; i++){
-        newCadena.push(resultado[i])
-    }
-    console.log(newCadena)
-
+    
     if (state.value !== "error"){
+        stack.push(state)
+        let newCadena = []
+        newCadena.push(struct)
+        resultado = resultado.map((char, index, array) => {
+            if (char === ' ' && array[index + 1] === ' ') {
+                return null; 
+            }
+            return char;
+        }).filter(char => char !== null);
         
-        const newState = getNewState(state)
-
-
-
-    /*
-    for (let i = 0; i < resultado.length; i++) {
-        const span = document.createElement('span');
-        let letra = resultado[i]
+        resultado.join('');
         
         
-        state = charValidate(letra, state)
-        stateError= state==undefined ? "error-no" : state
-        console.log(state)
-
-        if (state == undefined || stateError[0] == "error") {
-            span.textContent = letra;
-            
-            setTimeout(() => {
-                span.style.backgroundColor = 'red';
-            }, i * 500);
-            console.log('no chido'+ i+state )
-            return
-        } else {
-            span.textContent = letra;
-            console.log("chido" + i + state)
-            setTimeout(() => {
-                span.style.backgroundColor = 'lightgreen';
-            }, i * 500);
+        for(let i = struct.length; i<resultado.length; i++){
+            newCadena.push(resultado[i])
         }
         
+        
+        let i =0;
+        
+        /* fueraaaaaa */
+        let a = newCadena[0]
+        console.log(stack)
+        if (stack[stack.length-1] == "S"){
+            let production = getProduction(state,a)
 
-    }*/
-}
-console.log(state.error)
-    
-}
-
-function charValidate(char, currentState) {
-    if (char) {
-        if (gramatica[currentState] && gramatica[currentState].length > 0) {
-            for (let state of gramatica[currentState]) {
-                if (state.hasOwnProperty('regexp')){
-
+            stack.pop()
+            Array.isArray(production) ? stack.push(...production) : stack.push(production)
+        }
+        console.log(stack)
+        
+        for( i =0; i< 2;i){
+            let x=stack[stack.length -1]
+            a = newCadena[i]
+            
+            if (isTerminal(x)){
+                x = getValueRefex(x,a)
+                stack.pop()
+                console.log(x)
+                stack.push(x)
+                console.log(stack)
                 
-                if (state.regexp.test(char)) {
-                    console.log(state)
-                    return state.nextState;
+
+
+                if(x == a){
+                    stack.pop()
+                    i++
+                }
+                else{
+                    throw new Error("nopis")
                 }
             }
+            else if(!isTerminal(x)){    
+                stack.pop()               
+                let production = getProduction(x)
+                
+                if(production==undefined){
+                    throw new Error("nelpas")
+                }
+                    Array.isArray(production) ? stack.push(...production) : stack.push(production)
 
+                
+                
             }
-            return gramatica[currentState].error
+            else if(isTerminal(x)=="algo"){
+                break
+            }
+            
+
+            
+            
         }
-    }
+
+}else{
+
+    console.log(state.error)
+}
+    
 }
 
-
-function analyze() {
-    let inputPointer = 0;
+function isTerminal(topecitllo){
     
-    console.log(this.stack,this.input)
-    while (this.stack.length > 0) {
+    if(gramatica.hasOwnProperty(topecitllo)){
+        for (const gram of gramatica[topecitllo]) {
+            
+            return gram.terminal
+        }
+        
+    }else{
+        
+        return "algo"
+    }
     
-    const stackTop = this.stack[this.stack.length - 1];
-    const currentSymbol = this.input[inputPointer];
-    if (stackTop === currentSymbol) {
-        // Coincidencia, extraer de la pila y avanzar en la entrada
-        this.stack.pop();
-        inputPointer++;
-    } else {
-        // Error: Los símbolos no coinciden
-        console.error('Error de sintaxis');
-        return false;
-    }
-    }
-
-    // La entrada ha sido completamente analizada
-    console.log('Análisis sintáctico exitoso');
-    return true;
 }
+
 
 
 validateString()
