@@ -203,5 +203,141 @@
             "treat_as_word": true,
             "last_transition": true
         }
+    }, 
+    "function": {
+        "V": {
+            "next": [
+                [
+                    "K",
+                    "L"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "K": {
+            "next": [],
+            "reg": "^func$",
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "L": {
+            "next": [
+                [
+                    "G",
+                    "M"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true,
+            "last_transition": false
+        },
+        "G": {
+            "next": [],
+            "reg": "^\"$",
+            "treat_as_word": true
+        },
+        "M": {
+            "next": [
+                [
+                    "C",
+                    "N"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "C": {
+            "next": [
+                [
+                    "LE",
+                    "C"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "N": {
+            "next": [
+                [
+                    "G",
+                    "O"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "O": {
+            "next": [
+                [
+                    "PI",
+                    "P"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PI": {
+            "next": [],
+            "reg": "^\\($",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "P": {
+            "next": [
+                [
+                    "C",
+                    "R"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "R": {
+            "next": [
+                [
+                    "PF",
+                    "T"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PF": {
+            "next": [],
+            "reg": "^\\)$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "T": {
+            "next": [
+                [
+                    "CI",
+                    "U"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "CI": {
+            "next": [],
+            "reg": "^{$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "U": {
+            "next": [
+                [
+                    "CT",
+                    "CF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        }
     }
 }
