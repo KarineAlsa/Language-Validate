@@ -400,6 +400,24 @@
             "reg": null,
             "treat_as_word": true
         },
+        "C": {
+            "next": [
+                [
+                    "LE",
+                    "C"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "LE": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
         "AD": {
             "next": [
                 [
@@ -554,6 +572,245 @@
             "next": [
                 [
                     "CT",
+                    "CF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        }
+    },
+    "ciclos": {
+        "AP": {
+            "next": [
+                [
+                    "AQ",
+                    "AR"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AQ": {
+            "next": [],
+            "reg": "^for$",
+            "treat_as_word": true
+        },
+        "AR": {
+            "next": [
+                [
+                    "PI",
+                    "C1"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PI": {
+            "next": [],
+            "reg": "^\\($",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "C1": {
+            "next": [
+                [
+                    "AS",
+                    "AV"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AS": {
+            "next": [
+                [
+                    "A",
+                    "AT"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "A": {
+            "next": [],
+            "reg": "^int$",
+            "treat_as_word": true
+        },
+        "AT": {
+            "next": [
+                [
+                    "C",
+                    "AU"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "C": {
+            "next": [
+                [
+                    "LE",
+                    "C"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "LE": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "AU": {
+            "next": [
+                [
+                    "E",
+                    "C"
+                ], 
+                [
+                    "E",
+                    "RD"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "E": {
+            "next": [],
+            "reg": "^=$",
+            "treat_as_word": true
+        },
+        "RD": {
+            "next": [
+                [
+                    "DI",
+                    "RD"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "DI": {
+            "next": [],
+            "reg": "^[0-9]$",
+            "treat_as_word": false
+        },
+        "AV": {
+            "next": [
+                [
+                    "PC",
+                    "C2"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "PC": {
+            "next": [],
+            "reg": "^;$",
+            "treat_as_word": true,
+            "last_transition": true
+        },
+        "C2": {
+            "next": [
+                [
+                    "AW",
+                    "AZ"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AW": {
+            "next": [
+                [
+                    "C",
+                    "AX"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AX": {
+            "next": [
+                [
+                    "AY",
+                    "C"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AZ": {
+            "next": [
+                [
+                    "PC",
+                    "C3"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AY": {
+            "next": [],
+            "reg": "^(>|<|==|<=|>=)$",
+            "treat_as_word": true
+        },
+        "C3": {
+            "next": [
+                [
+                    "AS",
+                    "AV"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "BA": {
+            "next": [
+                [
+                    "C",
+                    "OF"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "OF": {
+            "next": [],
+            "reg": "^(++|--)$",
+            "treat_as_word": true
+        },
+        "BC": {
+            "next": [
+                [
+                    "PC",
+                    "BD"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "BD": {
+            "next": [
+                [
+                    "CI",
+                    "BE"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "BE": {
+            "next": [
+                [
+                    "CN",
                     "CF"
                 ]
             ],
