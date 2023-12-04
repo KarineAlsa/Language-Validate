@@ -178,9 +178,6 @@ const validateString = () => {
                 console.log(x)
                 stack.push(x)
                 console.log(stack)
-                
-
-
                 if(x == a){
                     stack.pop()
                     i++
