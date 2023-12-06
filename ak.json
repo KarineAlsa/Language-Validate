@@ -67,7 +67,7 @@
             "next": [
                 [
                     "LE",
-                    "C"
+                    "PA"
                 ],
                 [
                     null
@@ -79,6 +79,24 @@
         "LE": {
             "next": [],
             "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "PA": {
+            "next": [
+                [
+                    "RL",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "RL": {
+            "next": [],
+            "reg": "^[a-zA-Z0-9]$",
             "treat_as_word": false
         },
         "CH": {
@@ -253,7 +271,7 @@
             "next": [
                 [
                     "LE",
-                    "C"
+                    "PA"
                 ],
                 [
                     null
@@ -265,6 +283,24 @@
         "LE": {
             "next": [],
             "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "PA": {
+            "next": [
+                [
+                    "RL",
+                    "PA"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "RL": {
+            "next": [],
+            "reg": "^[a-zA-Z0-9]$",
             "treat_as_word": false
         },
         "N": {
@@ -435,6 +471,26 @@
             "next": [
                 [
                     "LI",
+                    "AG"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AG": {
+            "next": [
+                [
+                    "CF",
+                    "EL"
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": true
+        },
+        "AF": {
+            "next": [
+                [
+                    "CF2",
                     "EL"
                 ]
             ],
@@ -469,15 +525,25 @@
             "next": [],
             "reg": "^{$",
             "treat_as_word": true,
-            "last_transition": true,
-            "scopable": true
+            "scopable": true,
+            "last_transition": true
         },
         "LF": {
             "next": [],
-            "reg": "^{$",
+            "reg": "^}$",
             "treat_as_word": true,
             "last_transition": true
             
+        },
+        "CI": {
+            "next": [],
+            "reg": "^\\($",
+            "treat_as_word": true
+        },
+        "CF": {
+            "next": [],
+            "reg": "^\\)$",
+            "treat_as_word": true
         },
         "C": {
             "next": [
@@ -494,7 +560,7 @@
         },
         "LE": {
             "next": [],
-            "reg": "^[a-zA-Z]$",
+            "reg": "^[a-zA-Z0-9]$",
             "treat_as_word": false
         },
         "PA": {
@@ -561,11 +627,47 @@
         "AT": {
             "next": [
                 [
-                    "C", "AU"
+                    "CC", "AU"
                 ]
             ],
             "reg": null,
             "treat_as_word": true
+        },
+        "CC": {
+            "next": [
+                [
+                    "LE2",
+                    "PA2"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "LE2": {
+            "next": [],
+            "reg": "^[a-zA-Z]$",
+            "treat_as_word": false
+        },
+        "PA2": {
+            "next": [
+                [
+                    "RL",
+                    "PA2"
+                ],
+                [
+                    null
+                ]
+            ],
+            "reg": null,
+            "treat_as_word": false
+        },
+        "RL": {
+            "next": [],
+            "reg": "^[a-zA-Z0-9]$",
+            "treat_as_word": false
         },
         "AU": {
             "next": [
@@ -602,7 +704,7 @@
         "C2": {
             "next": [
                 [
-                    "C", "AW"
+                    "CC", "AW"
                 ]
             ],
             "reg": null,
@@ -638,7 +740,7 @@
         "C3": {
             "next": [
                 [
-                    "C", "BA"
+                    "CC", "BA"
                 ]
             ],
             "reg": null,
